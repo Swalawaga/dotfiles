@@ -48,18 +48,51 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  services.compton.enable = true;
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
   services.xserver = {
     enable = true;
     layout = "us";
     libinput.enable = true;
     libinput.naturalscrolling = true;
-    libinput.
-    #wok on it it here later this is unfinished use https://github.com/gilescope/dotgiles/blob/master/configuration.nix for reference
-  };
+    libinput.middleEmulation = false;
+    libinput.tapping = true;
+    libinput.clickMethod = "clickfinger";
+    libinput.horizontalScrolling = false;
+    libinput.disableWhileTyping = true;
+    # Enable the KDE Desktop Environment.
+    #displayManager.sddm.enable = true;
+    # desktopManager.plasma5.enable = true;
+    #desktopManager.xfce.enable = true;
+    #enable gnome
+    #services.xserver.displayManager.gdm.enable = true;
+    ##services.xserver.desktopManager.gnome.enable = true;
+    displayManager.lightdm.enable = true;
+    windowManager.i3.enable = true;
+
+
+    synaptics = {
+      enable = false;
+      dev = "/dev/input/event*";
+      twoFingerScroll = true;
+      tapButtons = false;
+      accelFactor = "0.02";
+      buttonsMap = [ 1 3 2 ];
+      palmDetect = true;
+      additionalOptions = ''
+        Option "PalmMinWidth" "8"
+	Option "PalmMinZ" "1000"
+        Option "VertScrollDelta" "-180" # scroll sensitivity, the bigger the negative number = less sensitive
+        Option "HorizScrollDelta" "-180"
+        Option "FingerLow" "40"
+        Option "FingerHigh" "90"
+        #Option "Resolution" "270" # Pointer sensitivity, this is for a retina screen, so you'll probably need to change this for an air
+      '';
+      };
+    };
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -92,6 +125,16 @@
     nodejs
     python
     firefox
+    dmenu
+    rofi
+    wofi
+    wirelesstools
+    i3status
+    networkmanagerapplet
+    (steam.override {nativeOnly = false; extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib ];}) 
+    synapse 
+    home-manager
+    #b43Firmware_5_1_138 idk if this is needed I think its important
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
