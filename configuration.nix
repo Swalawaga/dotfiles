@@ -13,8 +13,6 @@
   #Allow unfree packages cause Im not insane
   nixpkgs.config.allowUnfree = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -45,24 +43,20 @@
      keyMap = "us";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  #services.compton.enable = true;
+  #services.flatpak.enable = true;
+  #xdg.portal.enable = true;
 
-  services.compton.enable = true;
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
-
-  # Enable the GNOME Desktop Environment.
   services.xserver = {
     enable = true;
     layout = "us";
     libinput.enable = true;
-    libinput.naturalscrolling = true;
-    libinput.middleEmulation = false;
-    libinput.tapping = true;
-    libinput.clickMethod = "clickfinger";
-    libinput.horizontalScrolling = false;
-    libinput.disableWhileTyping = true;
+    libinput.touchpad.naturalScrolling = true;
+    libinput.touchpad.middleEmulation = false;
+    libinput.touchpad.tapping = true;
+    libinput.touchpad.clickMethod = "clickfinger";
+    libinput.touchpad.horizontalScrolling = false;
+    libinput.touchpad.disableWhileTyping = true;
     # Enable the KDE Desktop Environment.
     #displayManager.sddm.enable = true;
     # desktopManager.plasma5.enable = true;
@@ -72,30 +66,8 @@
     ##services.xserver.desktopManager.gnome.enable = true;
     displayManager.lightdm.enable = true;
     windowManager.i3.enable = true;
+  };
 
-
-    synaptics = {
-      enable = false;
-      dev = "/dev/input/event*";
-      twoFingerScroll = true;
-      tapButtons = false;
-      accelFactor = "0.02";
-      buttonsMap = [ 1 3 2 ];
-      palmDetect = true;
-      additionalOptions = ''
-        Option "PalmMinWidth" "8"
-	Option "PalmMinZ" "1000"
-        Option "VertScrollDelta" "-180" # scroll sensitivity, the bigger the negative number = less sensitive
-        Option "HorizScrollDelta" "-180"
-        Option "FingerLow" "40"
-        Option "FingerHigh" "90"
-        #Option "Resolution" "270" # Pointer sensitivity, this is for a retina screen, so you'll probably need to change this for an air
-      '';
-      };
-    };
-
-  # Configure keymap in X11
-  services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
@@ -104,37 +76,42 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-
+  programs.zsh.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.swalawaga = {
    isNormalUser = true;
-   extraGroups = [ "wheel" "networkmanager" "audio" "video"]; # Enable ‘sudo’ for the user.
+   shell = pkgs.zsh; #makes zsh the default shell for swalawaga
+   extraGroups = [ "wheel"]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    vim
+    curl
+    neovim
     tmux
     neofetch
     nodejs
+    git
     python
     firefox
     dmenu
     rofi
+    b43Firmware_5_1_138
     wofi
     wirelesstools
     i3status
     networkmanagerapplet
-    (steam.override {nativeOnly = false; extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib ];}) 
-    synapse 
-    home-manager
-    #b43Firmware_5_1_138 idk if this is needed I think its important
+    (steam.override {nativeOnly = false; extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib ];})
+    kitty
+    pywal
+    tty-clock
+    conky
+    dunst
+    xorg.xbacklight
+    zsh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -165,3 +142,4 @@
   system.stateVersion = "21.05"; # Did you read the comment?
 
 }
+
