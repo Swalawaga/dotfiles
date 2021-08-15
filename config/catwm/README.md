@@ -1,4 +1,4 @@
-personal fork of CATWM.
+Someone elses personal fork of CATWM that I stole lol.
 
 * personal config
 * implemented `_NET_SUPPORTED` and `_NET_ACTIVE_WINDOW` so xdotool can type stuff
