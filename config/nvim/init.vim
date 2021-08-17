@@ -1,3 +1,5 @@
+"Plugins
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'ap/vim-css-color'
@@ -19,3 +21,6 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
 call plug#end()
 syntax on
+
+"normal tabs and spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
