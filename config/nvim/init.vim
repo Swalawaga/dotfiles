@@ -50,8 +50,6 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 call plug#end()
 syntax on
 
-"bar
-
 hi linenr ctermfg=8
 hi cursorline cterm=NONE
 hi cursorlinenr ctermfg=15
