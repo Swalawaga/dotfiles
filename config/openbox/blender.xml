@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+    <menu id="root-menu" label="Openbox 3">
+    <item label="OPEN BLENDER!">
+        <action name="Execute">
+            <command>blender</command>
+        </action>
+    </item>
+    </menu>
+
+</openbox_menu>

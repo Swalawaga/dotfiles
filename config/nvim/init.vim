@@ -6,6 +6,8 @@ set showmode
 set showcmd
 set ruler
 set number
+set nohlsearch
+"set hidden
 "set cursorline
 set expandtab
 set noshiftround
@@ -18,10 +20,10 @@ set matchpairs+=<:>
 set statusline=%1*\ file\ %3*\ %f\ %4*\ 
 set statusline+=%=
 set statusline+=%3*\ %l\ of\ %L\ %2*\ line\ 
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=8 softtabstop=4 expandtab shiftwidth=4 smarttab
 "Keybinds
 let mapleader="\<SPACE>"
-"nnoremap <leader>t :r !python3 ~/.config/nvim/test.py % <CR>
+nnoremap <leader>t :r !python3 ~/.config/nvim/test.py % <CR>
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>f :browse oldfiles<CR>
 nnoremap <leader>s :w<CR>
