@@ -1,3 +1,12 @@
+
+"Auto install vim plug{{{
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+"}}}
+
 "Bar I think{{{
 syntax on
 set t_Co=16
@@ -7,8 +16,8 @@ set showcmd
 set ruler
 set number
 set nohlsearch
+filetype plugin on 
 "set hidden
-"set cursorline
 set expandtab
 set noshiftround
 set lazyredraw
@@ -52,6 +61,7 @@ nnoremap <leader>t :r !python3 ~/.config/nvim/test.py % <CR>
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>fr :Telescope oldfiles<CR>
 nnoremap <leader>s :w<CR>
+nnoremap <leader>co :!xclip -selection clipboard %<CR>
 "}}}
 
 " Plugins {{{
@@ -63,6 +73,9 @@ Plug 'zeekay/vim-beautify'
 Plug 'morhetz/gruvbox'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json'
+Plug 'preservim/nerdcommenter' "Comment
+Plug 'nvim-lua/plenary.nvim'
+Plug 'cespare/vim-toml'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'ycm-core/YouCompleteMe'
 if has('nvim')
